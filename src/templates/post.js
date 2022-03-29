@@ -3,6 +3,8 @@ import { graphql } from "gatsby"
 import { BLOCKS, MARKS } from "@contentful/rich-text-types"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import Layout from "../components/layout"
+import { motion } from "framer-motion"
 
 const Bold = ({ children }) => <span className="bold">{children}</span>
 const Italic = ({ children }) => <span className="em">{children}</span>
@@ -36,12 +38,27 @@ const options = {
 
 const Post = ({ data }) => {
   const image = getImage(data.post.image)
+  const location = data.props
+
   return (
-    <div className="Layout">
+    <Layout location={location}>
       <h1>{data.post.title}</h1>
-      <GatsbyImage loading="lazy" image={image} alt={data.post.image.title} />
+      <motion.div
+        initial={{
+          opacity: 0.5
+        }}
+        animate={{
+          opacity: 1,
+          rotate: 360
+        }}
+        transition={{
+          duration: 0.5
+        }}
+      >
+        <GatsbyImage loading="lazy" image={image} alt={data.post.image.title} />
+      </motion.div>
       <article>{renderRichText(data.post.content, options)}</article>
-    </div>
+    </Layout>
   )
 }
 
