@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import Header from "./header"
-// import Archive from "./archive"
+import Archive from "./archive"
 import "../css/reset.css"
 
 const LayoutMain = styled.main`
@@ -41,10 +41,8 @@ const Layout = ({ children, location }) => (
       <>
         <Header siteTitle={data.site.siteMetadata.title} />
         <LayoutMain>
-          <ContentBody>
-            {children}
-          </ContentBody>
-          {/* <Archive /> */}
+          <ContentBody>{children}</ContentBody>
+          <Archive />
         </LayoutMain>
         <LayoutFooter>
           © {new Date().getFullYear()}, Built with
@@ -61,7 +59,7 @@ Layout.propTypes = {
 }
 
 Layout.defaultProps = {
-  location: {}
+  location: {},
 }
 
 export default Layout
